@@ -18,6 +18,9 @@
   - 自动解析 50+ 相机型号参数
   - 支持 Canon/Sony/Fuji 等品牌 Logo
   - 自研排版引擎保证水印美观性
+
+## Demo
+🔗 [p.ict.run](http://p.ict.run)
  
 ![image](image.png)
 ![image](watermark.png)
