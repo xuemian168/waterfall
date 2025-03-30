@@ -43,6 +43,13 @@ const ThemeView = ({ theme }: ThemeViewProps) => {
     return () => window.removeEventListener('keydown', handleKeyboard)
   }, [lightboxIndex])
 
+  useEffect(() => {
+    theme.gallery.forEach(src => {
+      const img = new Image()
+      img.src = src
+    })
+  }, [theme.gallery])
+
   return (
     <div className="h-full w-full relative overflow-y-auto">
       {/* Hero Section */}
@@ -82,9 +89,14 @@ const ThemeView = ({ theme }: ThemeViewProps) => {
                 }, 1000)
               }}
               onMouseLeave={() => {
-                if (timerRef.current) {
-                  window.clearTimeout(timerRef.current)
-                }
+                useEffect(() => {
+                  return () => {
+                    if (timerRef.current) {
+                      clearTimeout(timerRef.current)
+                      timerRef.current = null // 明确清除引用
+                    }
+                  }
+                }, [])
                 setHoveredIndex(null)
               }}
             >
