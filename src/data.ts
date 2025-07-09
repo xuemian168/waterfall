@@ -24,7 +24,6 @@ import hangzhoueast1 from '/images/hangzhoueast1.png'
 import hh1 from '/images/hh1.png'
 import hz5 from '/images/hz5.png'
 import hz9 from '/images/hz9.png'
-import hz365 from '/images/hz365.png'
 import intersection from '/images/intersection.png'
 import shanghai1 from '/images/shanghai1.png'
 import shanghaitower from '/images/shanghaitower.png'
@@ -80,7 +79,6 @@ export const themes: Theme[] = [
       hgh2,
       hgh3,
       hangzhoueast1,
-      hz365,
       hz5,
       hz9,
       bne254,
