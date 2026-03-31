@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { themes } from './data'
 import ThemeView from './components/ThemeView'
+import { preloadImage } from './components/BlurImage'
 import Navigation from './components/Navigation'
 import Footer from './components/Footer'
 
@@ -537,6 +538,14 @@ function App() {
     }
   }, [])
 
+  // 预加载相邻主题的图片
+  useEffect(() => {
+    const prevIdx = (currentTheme - 1 + themes.length) % themes.length
+    const nextIdx = (currentTheme + 1) % themes.length
+    const toPreload = [...themes[prevIdx].gallery, ...themes[nextIdx].gallery]
+    toPreload.forEach(preloadImage)
+  }, [currentTheme])
+
   const nextTheme = () => {
     setCurrentTheme((prev) => (prev + 1) % themes.length)
   }
@@ -552,7 +561,7 @@ function App() {
       
       {/* Main Content */}
       <main className="pt-16">
-        <ThemeView theme={themes[currentTheme]} />
+        <ThemeView key={themes[currentTheme].title} theme={themes[currentTheme]} />
         
         {/* Theme Navigation */}
         <div className="fixed bottom-4 md:bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-2 md:gap-4 bg-black/70 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full">

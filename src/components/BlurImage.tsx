@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Loader2 } from 'lucide-react'
 
+// 模块级缓存：记录已加载过的图片 URL，避免重复 loading
+const loadedImages = new Set<string>()
+
+export function preloadImage(src: string) {
+  if (loadedImages.has(src)) return
+  const img = new Image()
+  img.src = src
+  img.onload = () => loadedImages.add(src)
+}
+
 interface BlurImageProps {
   src: string
   alt: string
@@ -8,13 +18,16 @@ interface BlurImageProps {
 }
 
 const BlurImage = ({ src, alt, className = '' }: BlurImageProps) => {
-  const [isLoading, setIsLoading] = useState(true)
-  const [currentSrc, setCurrentSrc] = useState(`${src}?w=20&blur=true`)
+  const alreadyLoaded = loadedImages.has(src)
+  const [isLoading, setIsLoading] = useState(!alreadyLoaded)
+  const [currentSrc, setCurrentSrc] = useState(alreadyLoaded ? src : `${src}?w=20&blur=true`)
 
   useEffect(() => {
+    if (loadedImages.has(src)) return
     const img = new Image()
     img.src = src
     img.onload = () => {
+      loadedImages.add(src)
       setCurrentSrc(src)
       setIsLoading(false)
     }

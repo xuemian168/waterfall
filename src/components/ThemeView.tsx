@@ -44,7 +44,7 @@ const ThemeView = ({ theme }: ThemeViewProps) => {
   }, [lightboxIndex])
 
   return (
-    <div className="h-full w-full relative overflow-y-auto">
+    <div className="h-full w-full relative overflow-y-auto animate-fadeIn">
       {/* Hero Section */}
       <div className="h-[40vh] md:h-[60vh] relative">
         <div 
